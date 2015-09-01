@@ -17,7 +17,11 @@ Puppet::Type.newtype('assert') do
   newparam(:name, :namevar => true) do
     desc "The name of the assert."
   end
-  
+
+  newparam(:message) do
+    desc 'The message to be displayed when the assert fails'
+  end
+
   newparam(:condition) do
     desc "The condition. Pass true to succeed and false to fail."
   end
