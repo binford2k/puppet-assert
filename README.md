@@ -16,14 +16,17 @@ You can temporarily disable an assert by setting its ensure parameter to absent.
 
 Usage
 =======
-
+```puppet
     assert { 'This should be applied':
-      condition => true
+      condition => true,
+      message   => "Look at me I am in the report now",
     } -> 
     class { 'two': }
     
     assert { 'This should NOT be applied':
-      condition => false
+      condition => false,
+      message   => "Look, I made your catalog run turn RED",
+
     } -> 
     class { 'three': }
     
@@ -33,6 +36,20 @@ Usage
     } -> 
     class { 'four': }
 
+# other use case
+
+assert{'linux security check':
+    condition => $::linux_security_check == 'pass',  # depends on a custom fact and compares the value
+    message   => 'Linux control 12345 did not pass, do what you gotta do to fix it'
+}
+
+```
+
+Assert Type Properties
+==========
+* condition  (currently only accepts true or false)
+* message    (overrides the title of the resource and supplies a message in the report)
+* ensure     (present or absent)
 
 Contact
 =======
@@ -46,6 +63,7 @@ Credit
 =======
 
 The development of this code was sponsored by Coverity.
+Additional modifications by Corey Osman
 
 License
 =======
