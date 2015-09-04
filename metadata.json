@@ -1,0 +1,15 @@
+{
+  "author": "Ben Ford <ben.ford@puppetlabs.com>",
+  "dependencies": [],
+  "license": "Apache License, Version 2.0",
+  "name": "binford2k-assert",
+  "operatingsystem_support": [
+  ],
+  "project_page": "https://github.com/binford2k",
+  "requirements": [],
+  "source": "https://github.com/binford2k",
+  "issues_url": "https://github.com/binford2k/issues",
+  "summary": "Allows one to specify an assert as a resource that classes or resources depend on. If the assert fails, all dependencies will be skipped.",
+  "tags": [],
+  "version": "0.1.0"
+}
