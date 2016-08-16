@@ -20,11 +20,17 @@ Puppet::Type.type(:assert).provide(:ruby) do
     end
   end
 
+  def assert_message
+    value = resource[:message] || resource[:name]
+    "Assert Failed: #{value}"
+  end
+
   def create
-    raise Puppet::Error, "Assert Failed: #{resource[:name]}"
+    raise Puppet::Error, assert_message
   end
 
   def destroy
-    raise Puppet::Error, "Assert Failed: #{resource[:name]}"
+    raise Puppet::Error, assert_message
   end
+
 end
