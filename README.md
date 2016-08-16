@@ -1,18 +1,29 @@
 Introduction
 ============
 
-Sometimes you find yourself in a situation where you may want to verify
-a condition before including a class, or similar. Perhaps you have custom
-facts that are only set after pluginsync is enabled, but you can't enable
-pluginsync until a puppet run manages `puppet.conf`. This resource type
-allows you to specify an assert clause, and any dependencies of this
-resource will be skipped if the assert fails.
+Sometimes you find yourself in a situation where you need to enforce part of a
+catalog based on some condition. Perhaps you have custom facts that don't get
+set until the second Puppet run, or maybe you need to gate enforcement on
+something external that's not managed. Perhaps you just want to sanity check
+that a machine has been provisioned properly before being handed to Puppet, and
+you'd like a sane error message if not.
 
-Remember that puppet handles undefined variables as `undef` which evaluates
-to `false`. This means that you can simply assert on a custom fact and it
-will fail if that fact does not exist.
+The `assert` type allows you to do dependency based partial catalogs. By adding
+an `assert` resource to your catalog, you can selectively skip any resources
+that express a dependency on it. This provides a straightforward way to manage
+partial enforcement without complex logic. It also retains a full catalog so you
+have a record of what was skipped and why.
 
-You can temporarily disable an assert by setting its ensure parameter to absent.
+The assert type includes simple fact assertions, several file path based
+assertions, and a command success assertion. See `puppet describe assert` for a
+full list of supported assertions.
+
+Remember that Puppet handles undefined variables as `undef` which evaluates to
+`false`. This means that you can simply assert on a custom fact and it will fail
+if that fact does not exist.
+
+You can invert an assert by setting its ensure parameter to absent.
+
 
 Usage
 =======
@@ -33,23 +44,37 @@ Usage
     } -> 
     class { 'four': }
 
+    assert { 'This should be applied if the directory exists':
+      directory => '/etc/custom'
+    } -> 
+    class { 'five': }
+
+    assert { 'This should be applied if the command succeeds':
+      command => 'ping -c1 database.example.com'
+    } -> 
+    class { 'six': }
+
+
 
 Contact
 =======
 
 * Author: Ben Ford
-* Email: ben.ford@puppetlabs.com
+* Email: ben.ford@puppet.com
 * Twitter: @binford2k
 * IRC (Freenode): binford2k
+
 
 Credit
 =======
 
-The development of this code was sponsored by Coverity.
+The initial development of this code was sponsored by Coverity.
+
 
 License
 =======
 
+Copyright (c) 2016 Ben Ford, ben.ford@puppet.com  
 Copyright (c) 2012 Puppet Labs, info@puppetlabs.com  
 Copyright (c) 2012 Coverity.com, mllaguno@coverity.com
 
