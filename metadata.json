@@ -1,6 +1,6 @@
 {
   "name": "binford2k-assert",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "binford2k",
   "summary": "Provides several assertions for partial catalog application.",
   "license": "Apache-2.0",
