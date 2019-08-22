@@ -39,6 +39,10 @@ Puppet::Type.newtype('assert') do
     desc "The assert will succeed if this path exists and is a file."
   end
 
+  newparam(:symlink) do
+    desc "The assert will succeed if this path exists and is a symlink."
+  end
+
   newparam(:directory) do
     desc "The assert will succeed if this path exists and is a directory."
   end
@@ -49,7 +53,7 @@ Puppet::Type.newtype('assert') do
 
   validate do
     count = 0
-    [:condition, :path, :file, :directory, :command].each do |param|
+    [:condition, :path, :file, :symlink, :directory, :command].each do |param|
       unless self.parameters[param].nil?
         count += 1
       end
