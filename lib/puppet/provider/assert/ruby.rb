@@ -8,6 +8,9 @@ Puppet::Type.type(:assert).provide(:ruby) do
     elsif resource[:file]
       File.file? resource[:file]
 
+    elsif resource[:symlink]
+      File.symlink? resource[:symlink]
+
     elsif resource[:directory]
       File.directory? resource[:directory]
 
