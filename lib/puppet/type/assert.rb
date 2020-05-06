@@ -1,5 +1,5 @@
 Puppet::Type.newtype('assert') do
-  desc "This type will simply assert that a condition is true. Useful for skipping classes that don't apply cleanly. Anything that requires a failing instance of this type will fail."
+  desc "This type will simply assert that a condition is true. Useful for skipping classes that don't apply cleanly. Anything that requires a failing instance of this type will fail.  Note that skipped resources cause an unclean run."
 
   ensurable do
     desc "If ensure is present, then this assert will take effect"
